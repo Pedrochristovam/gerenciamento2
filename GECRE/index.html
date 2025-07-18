@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão - Substituindo Planilhas</title>
+    <link rel="stylesheet" href="app/app.css">
+    
+</head>
+<body>
+    <div class="main-container">
+        <!-- Cabeçalho -->
+        <div class="header">
+            <h1>SISTEMA DE GESTÃO</h1>
+        </div>
+
+        <!-- Tabs de navegação -->
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="buscar">
+                    <span class="icon-search"></span>
+                    Buscar Informações
+                </button>
+                <button class="tab-button" data-tab="implementar">
+                    <span class="icon-add"></span>
+                    Implementar Informações
+                </button>
+            </div>
+        </div>
+
+        <!-- Conteúdo da aba Buscar -->
+        <div id="buscar" class="tab-content active">
+            <div class="form-section">
+                <h2 class="form-title">
+                    <span class="icon-search"></span>
+                    Buscar Informações
+                </h2>
+                
+                <form id="searchForm">
+                    <div class="fields-grid">
+                        <div class="field-group">
+                            <label for="search1">Campo 1</label>
+                            <input type="text" id="search1" name="search1" placeholder="Digite o valor...">
+                        </div>
+                        <div class="field-group">
+                            <label for="search2">Campo 2</label>
+                            <input type="text" id="search2" name="search2" placeholder="Digite o valor...">
+                        </div>
+                        <div class="field-group">
+                            <label for="search3">Campo 3</label>
+                            <input type="text" id="search3" name="search3" placeholder="Digite o valor...">
+                        </div>
+                        <div class="field-group">
+                            <label for="search4">Campo 4</label>
+                            <input type="text" id="search4" name="search4" placeholder="Digite o valor...">
+                        </div>
+                        <div class="field-group">
+                            <label for="search5">Campo 5</label>
+                            <input type="text" id="search5" name="search5" placeholder="Digite o valor...">
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="icon-search"></span>
+                            Buscar
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="exportToExcel()">
+                            <span class="icon-export"></span>
+                            Exportar Excel
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Área de resultados -->
+                <div id="resultsArea" class="results-area">
+                    <h3>Resultados da Busca</h3>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Campo 1</th>
+                                <th>Campo 2</th>
+                                <th>Campo 3</th>
+                                <th>Campo 4</th>
+                                <th>Campo 5</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTableBody">
+                            <!-- Resultados serão inseridos aqui via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo da aba Implementar -->
+        <div id="implementar" class="tab-content">
+            <div class="form-section">
+                <h2 class="form-title">
+                    <span class="icon-add"></span>
+                    Implementar Informações
+                </h2>
+                
+                <form id="implementForm">
+                    <div class="fields-grid" id="implementFields">
+                        <div class="field-group" data-field-id="1">
+                            <div class="field-header">
+                                <input type="text" class="field-name-input" value="Nome do Campo 1" placeholder="Nome do campo...">
+                                <button type="button" class="remove-field-btn" onclick="removeField(1)" title="Remover campo">×</button>
+                            </div>
+                            <input type="text" id="impl1" name="impl1" placeholder="Digite o valor...">
+                        </div>
+                        <div class="field-group" data-field-id="2">
+                            <div class="field-header">
+                                <input type="text" class="field-name-input" value="Nome do Campo 2" placeholder="Nome do campo...">
+                                <button type="button" class="remove-field-btn" onclick="removeField(2)" title="Remover campo">×</button>
+                            </div>
+                            <input type="text" id="impl2" name="impl2" placeholder="Digite o valor...">
+                        </div>
+                        <div class="field-group" data-field-id="3">
+                            <div class="field-header">
+                                <input type="text" class="field-name-input" value="Nome do Campo 3" placeholder="Nome do campo...">
+                                <button type="button" class="remove-field-btn" onclick="removeField(3)" title="Remover campo">×</button>
+                            </div>
+                            <input type="text" id="impl3" name="impl3" placeholder="Digite o valor...">
+                        </div>
+                        <div class="field-group" data-field-id="4">
+                            <div class="field-header">
+                                <input type="text" class="field-name-input" value="Nome do Campo 4" placeholder="Nome do campo...">
+                                <button type="button" class="remove-field-btn" onclick="removeField(4)" title="Remover campo">×</button>
+                            </div>
+                            <input type="text" id="impl4" name="impl4" placeholder="Digite o valor...">
+                        </div>
+                        <div class="field-group" data-field-id="5">
+                            <div class="field-header">
+                                <input type="text" class="field-name-input" value="Nome do Campo 5" placeholder="Nome do campo...">
+                                <button type="button" class="remove-field-btn" onclick="removeField(5)" title="Remover campo">×</button>
+                            </div>
+                            <input type="text" id="impl5" name="impl5" placeholder="Digite o valor...">
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="icon-save"></span>
+                            Gravar Informação
+                        </button>
+                        <button type="button" class="btn btn-outline add-field-btn" onclick="addField()">
+                            <span class="icon-plus"></span>
+                            Adicionar Campo
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="app.js/app.js"></script>
+</body>
+</html>
